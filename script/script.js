@@ -1,4 +1,3 @@
-
 'use strict';
 
 const cells = document.querySelectorAll('.cell');
@@ -8,6 +7,7 @@ const restartBtn = document.querySelector('.restart');
 const counter = document.querySelector('.counter')
 const cursorRed = document.querySelector('.cursor-red')
 const cursorBlue = document.querySelector('.cursor-blue')
+let popup = ''
 let redPoints = 0;
 let bluePoints = 0;
 let redPointsCounter = document.querySelector('.red_points')
@@ -50,7 +50,10 @@ cells.forEach(cell => {
                 checkWin('O');
                 firstPlayer = true;
             }
-    
+            if (isBoardFull() && !checkWin('Х') && !checkWin('O')) {
+                showPopup('Ничья');
+                setTimeout(restart, 2000)
+            }
         }
     });
 });
@@ -98,7 +101,7 @@ function isBoardFull() {
 
 function restart() {
     cells.forEach(cell => {
-        cell.style.cssText = 'pointer-events: all'
+        setTimeout(() => {cell.style.cssText = 'pointer-events: all'}, 1000)
     })
     cursorBlue.classList.add('hide')
     cursorRed.classList.remove('hide')
@@ -120,15 +123,16 @@ function checkWin(p) {
 
     if (isWin) {
         setTimeout(restart, 2000);
-        const popup = document.createElement('div');
+        cells.forEach(cell => {
+            cell.style.cssText = 'pointer-events: none'
+        })
+        popup = document.createElement('div');
         popup.classList.add('popup');
         background.appendChild(popup);
         setTimeout(() => {
             popup.remove();
         }, 4000);
-        cells.forEach(cell => {
-            cell.style.cssText = 'pointer-events: none'
-        })
+        
         if (p === 'Х') {
             redPoints++;
             redPointsCounter.innerText = `${redPoints}`;
@@ -138,7 +142,9 @@ function checkWin(p) {
             bluePointsCounter.innerText = `${bluePoints}`;
             popup.innerText = 'Победили нолики!';
         }
+        return true;
     }
+    return false;
 }
 
 function showPopup(text) {
