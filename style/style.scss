@@ -4,9 +4,31 @@
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
+    cursor: none;
 }
 
-html {overflow: hidden;}
+.cursor-red, .cursor-blue {
+    position: fixed;
+    font-size: 30px;
+    color: #9b4747;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-blue {
+    color: #353a74;
+}
+
+.hide {
+    opacity: 0;
+    transition: .3s;
+}
+
+html {overflow: hidden;
+}
 
 ::selection {
     background-color: #ffffff3d;
@@ -93,7 +115,6 @@ main {
             overflow: hidden;
             font-weight: bold;
             transition: .5s;
-            cursor: pointer;
             user-select: none;
             display: flex;
             align-items: center;
@@ -132,7 +153,6 @@ main {
         &:hover {
             background-color: #b15353;
             transform: translateY(-5px);
-            cursor: pointer;
         }
     }
 }
@@ -172,6 +192,26 @@ main {
 
     100% {
         transform: translateY(2000px)
+    }
+}
+
+@keyframes cursorRedShake {
+    0% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(-10deg);
+    }
+}
+
+@keyframes cursorBlueShake {
+    0% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(-10px);
     }
 }
 

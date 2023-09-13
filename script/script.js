@@ -6,6 +6,8 @@ const background = document.querySelector('main');
 const container = document.querySelector('.container');
 const restartBtn = document.querySelector('.restart');
 const counter = document.querySelector('.counter')
+const cursorRed = document.querySelector('.cursor-red')
+const cursorBlue = document.querySelector('.cursor-blue')
 let redPoints = 0;
 let bluePoints = 0;
 let redPointsCounter = document.querySelector('.red_points')
@@ -16,6 +18,24 @@ const winCombinations = [
     [0, 3, 6], [1, 4, 7], [2, 5, 8], 
     [0, 4, 8], [2, 4, 6]             
 ];
+
+cursorRed.style.cssText = 'animation: cursorRedShake 1s infinite alternate'
+cursorBlue.style.cssText = 'animation: cursorBlueShake 1s infinite alternate'
+
+document.addEventListener('mousemove', (e) => {
+    let x = e.clientX
+    let y = e.clientY
+    
+    cursorRed.animate({
+        top: `${y}px`,
+        left: `${x}px`
+    }, {duration: 1000, fill: 'forwards'}
+    )
+    cursorBlue.animate({
+        top: `${y}px`,
+        left: `${x}px`
+    }, {duration: 1000, fill: 'forwards'})
+})
 
 cells.forEach(cell => {
     cell.addEventListener('click', () => {
@@ -36,6 +56,8 @@ cells.forEach(cell => {
 });
 
 function backgroundChange() {
+    cursorRed.classList.toggle('hide')
+    cursorBlue.classList.toggle('hide')
     counter.classList.toggle('zero_theme_counter')
     background.classList.toggle('zero_theme');
     container.classList.toggle('zero_theme');
@@ -78,6 +100,8 @@ function restart() {
     cells.forEach(cell => {
         cell.style.cssText = 'pointer-events: all'
     })
+    cursorBlue.classList.add('hide')
+    cursorRed.classList.remove('hide')
     firstPlayer = true;
     counter.classList.remove('zero_theme_counter')
     background.classList.remove('zero_theme');

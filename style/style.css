@@ -3,6 +3,27 @@
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
+  cursor: none;
+}
+
+.cursor-red, .cursor-blue {
+  position: fixed;
+  font-size: 30px;
+  color: #9b4747;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-blue {
+  color: #353a74;
+}
+
+.hide {
+  opacity: 0;
+  transition: 0.3s;
 }
 
 html {
@@ -97,7 +118,6 @@ main .container .cell {
   overflow: hidden;
   font-weight: bold;
   transition: 0.5s;
-  cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -133,7 +153,6 @@ main .restart {
 main .restart:hover {
   background-color: #b15353;
   transform: translateY(-5px);
-  cursor: pointer;
 }
 
 @keyframes cellText {
@@ -165,5 +184,21 @@ main .restart:hover {
   }
   100% {
     transform: translateY(2000px);
+  }
+}
+@keyframes cursorRedShake {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+@keyframes cursorBlueShake {
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
   }
 }/*# sourceMappingURL=style.css.map */
