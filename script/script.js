@@ -81,6 +81,10 @@ restartBtn.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if (e.code === 'KeyR') {
         restart();
+        redPoints = 0
+        redPointsCounter.innerText = `${redPoints}`
+        bluePoints = 0
+        bluePointsCounter.innerText = `${bluePoints}`
     }
 });
 
