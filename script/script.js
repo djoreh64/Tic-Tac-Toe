@@ -13,6 +13,8 @@ let bluePoints = 0;
 let redPointsCounter = document.querySelector('.red_points')
 let bluePointsCounter = document.querySelector('.blue_points')
 let firstPlayer = true;
+const clickAudio = document.querySelector('.click_audio')
+const restartAudio = document.querySelector('.restart_audio')
 const winCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], 
     [0, 3, 6], [1, 4, 7], [2, 5, 8], 
@@ -25,7 +27,6 @@ cursorBlue.style.cssText = 'animation: cursorBlueShake 1s infinite alternate'
 document.addEventListener('mousemove', (e) => {
     let x = e.clientX
     let y = e.clientY
-    
     cursorRed.animate({
         top: `${y}px`,
         left: `${x}px`
@@ -40,6 +41,7 @@ document.addEventListener('mousemove', (e) => {
 cells.forEach(cell => {
     cell.addEventListener('click', () => {
         if (!cell.innerHTML) {
+            clickAudio.play()
             backgroundChange();
             if (firstPlayer) {
                 cell.innerHTML = '<span class=\'cell_text\'>Х</span>';
@@ -51,7 +53,7 @@ cells.forEach(cell => {
                 firstPlayer = true;
             }
             if (isBoardFull() && !checkWin('Х') && !checkWin('O')) {
-                showPopup('Ничья');
+                showPopup('Ничья!');
                 setTimeout(restart, 2000)
             }
         }
@@ -71,11 +73,13 @@ function backgroundChange() {
 }
 
 restartBtn.addEventListener('click', () => {
-    restart();
-    redPoints = 0
-    redPointsCounter.innerText = `${redPoints}`
-    bluePoints = 0
-    bluePointsCounter.innerText = `${bluePoints}`
+    if(isBoardNotEmpty()) {
+        redPoints = 0
+        redPointsCounter.innerText = `${redPoints}`
+        bluePoints = 0
+        bluePointsCounter.innerText = `${bluePoints}`
+        restart();
+    }
 });
 
 document.addEventListener('keydown', (e) => {
@@ -103,7 +107,12 @@ function isBoardFull() {
     return Array.from(cells).every(cell => cell.innerHTML !== '');
 }
 
+function isBoardNotEmpty() {
+    return Array.from(cells).some(cell => cell.innerHTML !== '');
+}
+
 function restart() {
+    restartAudio.play()
     cells.forEach(cell => {
         setTimeout(() => {cell.style.cssText = 'pointer-events: all'}, 1000)
     })

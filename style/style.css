@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;900&display=swap");
 * {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
@@ -7,6 +10,7 @@
 }
 
 .cursor-red, .cursor-blue {
+  font-weight: bold;
   position: fixed;
   font-size: 30px;
   color: #9b4747;
@@ -30,14 +34,6 @@ html {
   overflow: hidden;
 }
 
-::-moz-selection {
-  background-color: rgba(255, 255, 255, 0.2392156863);
-}
-
-::selection {
-  background-color: rgba(255, 255, 255, 0.2392156863);
-}
-
 ::-webkit-scrollbar {
   width: 0;
 }
@@ -48,7 +44,7 @@ html {
 
 .zero_theme {
   background-color: #6068d3 !important;
-  box-shadow: 0 7px 0 #5e65cc !important;
+  box-shadow: 0 7px 0 #5e65cc, 0 0 40px #5c63c9 !important;
 }
 
 .zero_theme_cells {
@@ -60,7 +56,7 @@ html {
 .zero_theme_btn {
   background-color: #545bb8 !important;
   color: #6971e2 !important;
-  box-shadow: 0 4px 0 #4e55ac !important;
+  box-shadow: 0 7px 0 #4e55ac, 0 0 40px #5c63c9 !important;
 }
 
 main {
@@ -89,11 +85,18 @@ main .popup {
   justify-content: center;
   position: absolute;
   transform: translateY(-2000px);
-  animation: popup 10s;
-  width: 100%;
-  height: 1300px;
+  animation: popup 15s;
+  width: 70%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 50px;
   font-size: 100px;
-  background-color: rgba(0, 0, 0, 0.1647058824);
+  background-color: rgba(0, 0, 0, 0.0352941176);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
 }
 main .counter {
   color: #964646;
@@ -111,7 +114,7 @@ main .container {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  box-shadow: 0 7px 0 #b65454;
+  box-shadow: 0 7px 0 #b65454, 0 0 40px #b65454;
 }
 main .container .cell {
   overflow: hidden;
@@ -146,11 +149,12 @@ main .restart {
   margin-top: 40px;
   border-radius: 5px;
   color: #5c2b2b;
-  background-color: #b85555;
-  box-shadow: 0 4px 0 #a54b4b;
+  background-color: #be5757;
+  box-shadow: 0 7px 0 #b65454, 0 0 40px #b65454;
 }
 main .restart:hover {
   background-color: #b15353;
+  box-shadow: 0 7px 0 #a34c4c;
   transform: translateY(-5px);
 }
 
