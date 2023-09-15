@@ -41,7 +41,7 @@ document.addEventListener('mousemove', (e) => {
 cells.forEach(cell => {
     cell.addEventListener('click', () => {
         if (!cell.innerHTML) {
-            clickAudio.play()
+            clickAudioPlay()
             backgroundChange();
             if (firstPlayer) {
                 cell.innerHTML = '<span class=\'cell_text\'>Х</span>';
@@ -54,6 +54,7 @@ cells.forEach(cell => {
             }
             if (isBoardFull() && !checkWin('Х') && !checkWin('O')) {
                 showPopup('Ничья!');
+                setTimeout(() => {restartAudio.play()}, 1000);
                 setTimeout(restart, 2000)
             }
         }
@@ -72,19 +73,31 @@ function backgroundChange() {
     });
 }
 
+function restartAudioPlay () {
+    if (redPoints !== 0 || bluePoints !== 0) {
+        restartAudio.play()
+        restartAudio.currentTime = 0
+    }
+}
+
+function clickAudioPlay () {
+    clickAudio.play()
+    clickAudio.currentTime = 0
+}
+
 restartBtn.addEventListener('click', () => {
-    if(isBoardNotEmpty()) {
+        restartAudioPlay()
         redPoints = 0
         redPointsCounter.innerText = `${redPoints}`
         bluePoints = 0
         bluePointsCounter.innerText = `${bluePoints}`
         restart();
-    }
 });
 
 document.addEventListener('keydown', (e) => {
     if (e.code === 'KeyR') {
         restart();
+        restartAudioPlay()
         redPoints = 0
         redPointsCounter.innerText = `${redPoints}`
         bluePoints = 0
@@ -107,12 +120,7 @@ function isBoardFull() {
     return Array.from(cells).every(cell => cell.innerHTML !== '');
 }
 
-function isBoardNotEmpty() {
-    return Array.from(cells).some(cell => cell.innerHTML !== '');
-}
-
 function restart() {
-    restartAudio.play()
     cells.forEach(cell => {
         setTimeout(() => {cell.style.cssText = 'pointer-events: all'}, 1000)
     })
@@ -135,6 +143,7 @@ function checkWin(p) {
     });
 
     if (isWin) {
+        setTimeout(() => {restartAudioPlay()}, 1000);
         setTimeout(restart, 2000);
         cells.forEach(cell => {
             cell.style.cssText = 'pointer-events: none'
