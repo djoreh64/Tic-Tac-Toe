@@ -20,7 +20,12 @@
     transform: translate(-50%, -50%);
 }
 
+.cursor-red {
+    animation: cursorRedShake 1s infinite alternate
+}
+
 .cursor-blue {
+    animation: cursorBlueShake 1s infinite alternate;
     color: #353a74;
 }
 
@@ -86,9 +91,6 @@ main {
         animation: popup 15s;
         width: 70%;
         height: 500px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         text-align: center;
         border-radius: 50px;
         font-size: 100px;
@@ -119,7 +121,6 @@ main {
             overflow: hidden;
             font-weight: bold;
             transition: .5s;
-            user-select: none;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -145,15 +146,14 @@ main {
         padding: 20px;
         width: 120px;
         height: 70px;
-        outline: 0;
-        border: 0;
+        outline: unset;
+        border: unset;
         margin-top: 40px;
         border-radius: 5px;
         color: #5c2b2b;
         background-color: #be5757;
         box-shadow: 0 7px 0 #b65454, 0 0 40px #b65454;
         
-
         &:hover {
             background-color: #b15353;
             box-shadow: 0 7px 0 #a34c4c;
